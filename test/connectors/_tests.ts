@@ -11,7 +11,12 @@ export function testConnector<TConnector extends Connector = Connector>(opts: { 
 
   it("dialect matches", () => {
     expect(db.dialect).toBe(opts.dialect);
-  })
+  });
+
+  it("connector getInstance()", () => {
+    const client = opts.connector.getInstance();
+    expect(client).toBeInstanceOf(Promise);
+  });
 
   it("drop and create table", async () => {
     await db.sql`DROP TABLE IF EXISTS users`;
